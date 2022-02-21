@@ -49,10 +49,7 @@ class Player {
   update() {
     if (this.IsDead) return;
 
-    // If is inside any platform the player can use WSAD keys.
-    if (this.IsGrabbing) {
-      this.checkWASDInputs();
-    }
+    if (this.IsGrabbing) this.checkWASDInputs();
 
     this.checkMouseInputs();
 
