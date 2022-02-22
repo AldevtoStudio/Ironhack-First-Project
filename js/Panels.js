@@ -62,13 +62,13 @@ class Panel {
 
   // Check if player is inside panel border boundaries.
   checkPlayerInBorders() {
-    let grabOffset = 12;
+    let offset = 4;
 
-    let checkLeftBorder = this.player.x >= this.x - this.spriteSize / 2 && this.player.x <= this.x - this.spriteSize / 2 + grabOffset;
-    let checkRightBorder = this.player.x <= this.x + this.spriteSize / 2 && this.player.x >= this.x + this.spriteSize / 2 - grabOffset;
+    let checkLeftBorder = this.player.x >= this.x - this.spriteSize / 2 && this.player.x <= this.x - this.spriteSize / 2 + offset;
+    let checkRightBorder = this.player.x <= this.x + this.spriteSize / 2 && this.player.x >= this.x + this.spriteSize / 2 - offset;
 
-    let checkUpBorder = this.player.y >= this.y - this.spriteSize / 2 && this.player.y <= this.y - this.spriteSize / 2 + grabOffset;
-    let checkDownBorder = this.player.y <= this.y + this.spriteSize / 2 && this.player.y >= this.y + this.spriteSize / 2 - grabOffset;
+    let checkUpBorder = this.player.y >= this.y - this.spriteSize / 2 && this.player.y <= this.y - this.spriteSize / 2 + offset;
+    let checkDownBorder = this.player.y <= this.y + this.spriteSize / 2 && this.player.y >= this.y + this.spriteSize / 2 - offset;
 
     return checkLeftBorder || checkRightBorder || checkUpBorder || checkDownBorder;
   }

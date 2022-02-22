@@ -16,6 +16,8 @@ class Player {
     this.canThrow = true; // Return to false after testing!
     this.score = 0;
     this.keysPressed = [];
+    this.IsOnAir = false;
+    this.FirstTime = true;
 
     // Player physics
     this.vx = 0;
@@ -25,6 +27,7 @@ class Player {
     // Game references
     this.canvas = canvasElement;
     this.context = canvasElement.getContext('2d');
+    this.panels = [];
 
     // Player sprites direction/path pair value.
     const playerSprites = {
@@ -49,7 +52,12 @@ class Player {
   update() {
     if (this.IsDead) return;
 
-    if (this.IsGrabbing) this.checkWASDInputs();
+    this.panels.forEach((panel) => {
+      if (panel.checkPlayerInside()) {
+        this.checkWASDInputs(panel);
+        this.FirstTime = false;
+      } else if (!this.FirstTime && panel.checkPlayerInside()) this.IsOnAir = true;
+    });
 
     this.checkMouseInputs();
 
@@ -66,14 +74,21 @@ class Player {
   }
 
   physicsUpdate() {
-    this.x += this.vx;
-    this.y += this.vy;
+    if (this.IsOnAir) {
+      this.x += this.vx;
+      this.y += this.vy;
 
-    if (this.IsGrabbing) {
-      this.vy = 0;
-      this.vx = 0;
-    } else {
       this.vy += this.grav;
+    } else {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (this.IsGrabbing) {
+        this.vy = 0;
+        this.vx = 0;
+      } else {
+        this.vy += this.grav;
+      }
     }
   }
 
@@ -99,7 +114,6 @@ class Player {
       this.WasGrabbing = true;
 
       this.startPoint = new Point(this.mouseX - this.x, this.mouseY - this.y);
-      //console.log(`Start Point: (${this.startPoint.value})`);
     };
 
     // Get mouse position relative to player position on mouse up (end point).
@@ -110,15 +124,11 @@ class Player {
       this.endPoint = new Point(this.mouseX - this.x, this.mouseY - this.y);
       this.grabVector = new Vector(this.startPoint, this.endPoint);
 
-      //console.log(`EndPoint: (${this.endPoint.value})`);
-      //console.log(`GrabVector: (${this.grabVector.value})`);
-      //console.log(`GrabVector magnitude: ${this.grabVector.magnitude()}`);
-      //console.log(`GrabVector normalized: (${this.grabVector.normalized().value})`);
       this.throwPlayer();
     };
   }
 
-  checkWASDInputs() {
+  checkWASDInputs(panel) {
     for (const key of this.keysPressed) {
       switch (key) {
         case 'w':
@@ -134,6 +144,12 @@ class Player {
           this.vx = +0.5;
           break;
       }
+
+      // Clamp player position.
+      let offset = 2;
+
+      this.x = Clamp(this.x, panel.x - panel.spriteSize / 2 + offset, panel.x + panel.spriteSize / 2 - offset);
+      this.y = Clamp(this.y, panel.y - panel.spriteSize / 2 + offset, panel.y + panel.spriteSize / 2 - offset);
     }
   }
 
@@ -142,8 +158,6 @@ class Player {
 
     this.vx = -(5 * this.grabVector.normalized().x);
     this.vy = -(10 * this.grabVector.normalized().y);
-    console.log(`X vel: ${this.vx}`);
-    console.log(`Y vel: ${this.vy}`);
 
     this.IsGrabbing = false;
     this.WasGrabbing = false;

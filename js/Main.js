@@ -6,6 +6,7 @@ const canvasHeight = canvasElement.height;
 
 const player = new Player(canvasWidth / 2, canvasHeight - 100, canvasElement);
 const panels = [new Panel(canvasWidth / 2, canvasHeight - 200, canvasElement, player), new Panel(canvasWidth / 2 - 75, canvasHeight - 450, canvasElement, player), new Panel(canvasWidth / 2 + 100, canvasHeight - 350, canvasElement, player), new Panel(canvasWidth / 2 + 100, canvasHeight - 550, canvasElement, player)];
+player.panels = panels;
 
 function updateLoop() {
   player.update();
