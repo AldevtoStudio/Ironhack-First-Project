@@ -6,13 +6,22 @@ const canvasHeight = canvasElement.height;
 
 const player = new Player(canvasWidth / 2, canvasHeight - 100, canvasElement);
 const panels = [new Panel(canvasWidth / 2, canvasHeight - 200, canvasElement, player), new Panel(canvasWidth / 2 - 75, canvasHeight - 450, canvasElement, player), new Panel(canvasWidth / 2 + 100, canvasHeight - 350, canvasElement, player), new Panel(canvasWidth / 2 + 100, canvasHeight - 550, canvasElement, player)];
+let tiles = [new Tile(0, 0, canvasElement, player, this), new Tile(0, canvasHeight, canvasElement, player, this)];
+
 player.panels = panels;
+player.tiles = tiles;
 
 function updateLoop() {
   player.update();
-  panels.forEach((panel) => {
+
+  player.tiles.forEach((tile) => {
+    tile.update();
+  });
+
+  player.panels.forEach((panel) => {
     panel.update();
   });
+
   drawGame();
 
   window.requestAnimationFrame(() => updateLoop());
@@ -20,9 +29,15 @@ function updateLoop() {
 
 function drawGame() {
   contextElement.clearRect(0, 0, canvasWidth, canvasHeight);
-  panels.forEach((panel) => {
+
+  player.tiles.forEach((tiles) => {
+    tiles.draw();
+  });
+
+  player.panels.forEach((panel) => {
     panel.draw();
   });
+
   player.draw();
 }
 

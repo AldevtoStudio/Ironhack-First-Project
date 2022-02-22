@@ -28,6 +28,7 @@ class Player {
     this.canvas = canvasElement;
     this.context = canvasElement.getContext('2d');
     this.panels = [];
+    this.tiles = [];
 
     // Player sprites direction/path pair value.
     const playerSprites = {
@@ -90,6 +91,8 @@ class Player {
         this.vy += this.grav;
       }
     }
+
+    this.checkTilesOutside();
   }
 
   mousePosition() {
@@ -148,8 +151,8 @@ class Player {
       // Clamp player position.
       let offset = 2;
 
-      this.x = Clamp(this.x, panel.x - panel.spriteSize / 2 + offset, panel.x + panel.spriteSize / 2 - offset);
-      this.y = Clamp(this.y, panel.y - panel.spriteSize / 2 + offset, panel.y + panel.spriteSize / 2 - offset);
+      this.x = Clamp(this.x, panel.x - panel.colliderSizeX / 2 + offset, panel.x + panel.colliderSizeX / 2 - offset);
+      this.y = Clamp(this.y, panel.y - panel.colliderSizeY / 2 + offset, panel.y + panel.colliderSizeY / 2 - offset);
     }
   }
 
@@ -161,6 +164,17 @@ class Player {
 
     this.IsGrabbing = false;
     this.WasGrabbing = false;
+  }
+
+  checkTilesOutside() {
+    this.tiles.forEach((tile) => {
+      if (tile.y == this.canvas.height) {
+        let index = this.tiles.indexOf(tile);
+        this.tiles.slice(index, 1);
+
+        tiles.push(new Tile(0, -canvasHeight, this.canvas, this));
+      }
+    });
   }
 }
 
