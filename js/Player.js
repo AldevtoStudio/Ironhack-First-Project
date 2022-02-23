@@ -2,8 +2,11 @@ class Player {
   constructor(x, y, canvasElement) {
     // Player draw.
     this.direction = 'down';
-    this.sprites = {};
-    this.spriteSize = 32;
+    this.sprite = new Image();
+    this.sprite.src = '../sprites/player.png';
+    //this.sprites = {};
+    this.spriteSizeX = 34;
+    this.spriteSizeY = 40;
 
     // Player position.
     this.x = x;
@@ -46,8 +49,7 @@ class Player {
   }
 
   draw() {
-    this.context.fillRect(this.x - this.spriteSize / 2, this.y - this.spriteSize / 2, this.spriteSize, this.spriteSize);
-    //context.drawImage();
+    this.context.drawImage(this.sprite, this.x - this.spriteSizeX / 2, this.y - this.spriteSizeY / 2, this.spriteSizeX, this.spriteSizeY);
   }
 
   update() {
@@ -69,8 +71,7 @@ class Player {
 
     // Die but letting the head of the player just a little bit above the lava.
     if (this.y > this.canvas.height) {
-      console.log('You lost!');
-      this.IsDead = true;
+      this.die();
     }
   }
 
@@ -105,7 +106,7 @@ class Player {
   // Check if mouse is inside player boundaries.
   checkGrab() {
     let grabOffset = 8;
-    return this.mouseX >= this.x - this.spriteSize / 2 - grabOffset && this.mouseX <= this.x + this.spriteSize / 2 + grabOffset && this.mouseY <= this.y + this.spriteSize / 2 + grabOffset && this.mouseY >= this.y - this.spriteSize / 2 - grabOffset;
+    return this.mouseX >= this.x - this.spriteSizeX / 2 - grabOffset && this.mouseX <= this.x + this.spriteSizeX / 2 + grabOffset && this.mouseY <= this.y + this.spriteSizeY / 2 + grabOffset && this.mouseY >= this.y - this.spriteSizeY / 2 - grabOffset;
   }
 
   checkMouseInputs() {
@@ -132,6 +133,8 @@ class Player {
   }
 
   checkWASDInputs(panel) {
+    if (this.IsHit) return;
+
     for (const key of this.keysPressed) {
       switch (key) {
         case 'w':
@@ -175,6 +178,23 @@ class Player {
         tiles.push(new Tile(0, -canvasHeight, this.canvas, this));
       }
     });
+  }
+
+  die() {
+    console.log('You lost!');
+    this.IsDead = true;
+  }
+
+  hit() {
+    this.IsHit = true;
+
+    this.IsGrabbing = false;
+    this.WasGrabbing = false;
+    this.IsOnAir = true;
+    this.canThrow = false;
+
+    this.vx = 0;
+    this.vy = -3;
   }
 }
 

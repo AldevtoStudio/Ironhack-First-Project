@@ -4,15 +4,20 @@ const contextElement = canvasElement.getContext('2d');
 const canvasWidth = canvasElement.width;
 const canvasHeight = canvasElement.height;
 
+const leftBorder = 32;
+const rightBorder = canvasWidth - 32;
+
 const player = new Player(canvasWidth / 2, canvasHeight - 100, canvasElement);
 const panels = [new Panel(canvasWidth / 2, canvasHeight - 200, canvasElement, player), new Panel(canvasWidth / 2 - 75, canvasHeight - 450, canvasElement, player), new Panel(canvasWidth / 2 + 100, canvasHeight - 350, canvasElement, player), new Panel(canvasWidth / 2 + 100, canvasHeight - 550, canvasElement, player)];
-let tiles = [new Tile(0, 0, canvasElement, player, this), new Tile(0, canvasHeight, canvasElement, player, this)];
+let tiles = [new Tile(0, 0, canvasElement, player), new Tile(0, canvasHeight, canvasElement, player)];
+let enemy = new EnemyCannon(leftBorder, 100, canvasElement, player);
 
 player.panels = panels;
 player.tiles = tiles;
 
 function updateLoop() {
   player.update();
+  enemy.update();
 
   player.tiles.forEach((tile) => {
     tile.update();
@@ -34,11 +39,17 @@ function drawGame() {
     tiles.draw();
   });
 
+  enemy.draw();
+
   player.panels.forEach((panel) => {
     panel.draw();
   });
 
   player.draw();
+
+  enemy.cannonBalls.forEach((ball) => {
+    ball.draw();
+  });
 }
 
 function getInputs(_player) {

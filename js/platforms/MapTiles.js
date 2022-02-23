@@ -1,14 +1,14 @@
 class Tile {
   constructor(x, y, canvasElement, player) {
-    // Panel draw.
+    // Tile draw.
     this.sprite = new Image();
     this.sprite.src = '../sprites/towerBackground.png';
 
-    // Panel position.
+    // Tile position.
     this.x = x;
     this.y = y;
 
-    // Panel physics
+    // Tile physics
     this.vx = 0;
     this.vy = 0;
     this.grav = 0.2;
@@ -20,7 +20,6 @@ class Tile {
   }
 
   draw() {
-    //this.context.fillRect(this.x - this.spriteSize / 2, this.y - this.spriteSize / 2, this.spriteSize, this.spriteSize);
     this.context.drawImage(this.sprite, this.x, this.y, this.canvas.width, this.canvas.height);
   }
 

@@ -24,11 +24,7 @@ class Panel {
   }
 
   draw() {
-    // contextElement.save();
-    // this.context.fillStyle = 'grey';
-    // this.context.fillRect(this.x - this.spriteSizeX / 2, this.y - this.spriteSizeY / 2, this.spriteSizeX, this.spriteSizeY);
     this.context.drawImage(this.sprite, this.x - this.spriteSizeX / 2, this.y - this.spriteSizeY / 2, this.spriteSizeX, this.spriteSizeY);
-    // contextElement.restore();
   }
 
   update() {
