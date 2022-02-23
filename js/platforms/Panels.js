@@ -69,6 +69,10 @@ class Panel {
     let checkUpBorder = this.player.y >= this.y - this.colliderSizeY / 2 && this.player.y <= this.y - this.colliderSizeY / 2 + offset;
     let checkDownBorder = this.player.y <= this.y + this.colliderSizeY / 2 && this.player.y >= this.y + this.colliderSizeY / 2 - offset;
 
+    if (checkLeftBorder) this.player.sprite.src = '../sprites/playerLeft.png';
+    else if (checkRightBorder) this.player.sprite.src = '../sprites/playerRight.png';
+    else this.player.sprite.src = '../sprites/player.png';
+
     return checkLeftBorder || checkRightBorder || checkUpBorder || checkDownBorder;
   }
 }
