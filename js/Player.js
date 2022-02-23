@@ -1,9 +1,9 @@
 class Player {
   constructor(x, y, canvasElement) {
     // Player draw.
-    this.direction = 'down';
-    this.sprite = new Image();
-    this.sprite.src = '../sprites/player.png';
+    this.sprites = {};
+    this.state = 'idle';
+
     //this.sprites = {};
     this.spriteSizeX = 34;
     this.spriteSizeY = 40;
@@ -34,22 +34,17 @@ class Player {
     this.tiles = [];
 
     // Player sprites direction/path pair value.
-    const playerSprites = {
-      left: 'images/playerLeft.png',
-      up: 'images/playerUp.png',
-      right: 'images/playerRight.png',
-      down: 'images/playerDown.png'
-    };
+    const playerSprites = { idle: '../sprites/player.png', left: '../sprites/playerLeft.png', right: '../sprites/playerRight.png' };
 
-    /*// Load and storing player sprites.
-    for (var orientation in playerSprites) {
-      this.sprites[orientation] = new Image();
-      this.sprites[orientation].src = playerSprites[orientation];
-    }*/
+    // Load and storing player sprites.
+    for (var state in playerSprites) {
+      this.sprites[state] = new Image();
+      this.sprites[state].src = playerSprites[state];
+    }
   }
 
   draw() {
-    this.context.drawImage(this.sprite, this.x - this.spriteSizeX / 2, this.y - this.spriteSizeY / 2, this.spriteSizeX, this.spriteSizeY);
+    this.context.drawImage(this.sprites[this.state], this.x - this.spriteSizeX / 2, this.y - this.spriteSizeY / 2, this.spriteSizeX, this.spriteSizeY);
   }
 
   update() {
