@@ -19,7 +19,8 @@ class Tile {
     this.player = player;
     this.xPositions = [];
     this.yPositions = [];
-    this.maxPerTile = 6;
+    this.maxPanelsPerTile = 6;
+    this.maxEnemiesPerTile = 1;
   }
 
   generatePanels() {
@@ -31,8 +32,8 @@ class Tile {
 
     // Generate random windows.
     for (let i = 0; i < this.yPositions.length - 1; i++) {
-      // Stop generating panels if reached maxPerTile.
-      if (this.maxPerTile === generatedPanels) return;
+      // Stop generating panels if reached maxPanelsPerTile.
+      if (this.maxPanelsPerTile === generatedPanels) return;
 
       // Generate random x positions and prevent the first time to be the same as the last x.
       let randomXPos = this.xPositions[Math.floor(Math.random() * this.xPositions.length)];
@@ -48,7 +49,20 @@ class Tile {
 
       // Remove panel position from xPositions array.
       let indexOfX = this.xPositions.indexOf(randomXPos);
-      this.xPositions.slice(indexOfX, 1);
+      this.xPositions.splice(indexOfX, 1);
+    }
+  }
+
+  generateEnemies() {
+    let yPos = [100, 200, 300, 400];
+
+    for (let i = 0; i < this.maxEnemiesPerTile; i++) {
+      let randomNumber = Math.random();
+      let randomYPos = yPos[Math.floor(Math.random() * yPos.length)];
+      this.player.enemies.push(new EnemyCannon(randomNumber >= 0.5 ? rightBorder : leftBorder, randomYPos + this.y, this.canvas, this.player));
+
+      let index = yPos.indexOf(randomYPos);
+      yPos.splice(index, 1);
     }
   }
 
@@ -67,8 +81,12 @@ class Tile {
       }
     }
 
-    if (!this.IsGenerated) this.generatePanels();
-    this.IsGenerated = true;
+    if (!this.IsGenerated) {
+      this.generatePanels();
+      this.generateEnemies();
+
+      this.IsGenerated = true;
+    }
   }
 
   draw() {

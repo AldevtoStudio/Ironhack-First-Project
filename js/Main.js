@@ -10,20 +10,18 @@ const rightBorder = canvasWidth - 32;
 const player = new Player(canvasWidth / 2, canvasHeight - 100, canvasElement);
 const panels = [new Panel(canvasWidth / 2, canvasHeight - 150, canvasElement, player)];
 let tiles = [new Tile(0, 0, canvasElement, player), new Tile(0, -canvasHeight, canvasElement, player)];
-let enemy = new EnemyCannon(leftBorder, 100, canvasElement, player);
+let enemies = [new EnemyCannon(leftBorder, 150, canvasElement, player)];
 
 player.panels = panels;
 player.tiles = tiles;
-
-function start() {
-  tiles.forEach((tile) => {
-    tile.start();
-  });
-}
+player.enemies = enemies;
 
 function updateLoop() {
   player.update();
-  enemy.update();
+
+  player.enemies.forEach((enemy) => {
+    enemy.update();
+  });
 
   tiles.forEach((tile) => {
     tile.update();
@@ -49,11 +47,16 @@ function drawGame() {
     panel.draw();
   });
 
-  enemy.draw();
+  player.enemies.forEach((enemy) => {
+    enemy.draw();
+  });
+
   player.draw();
 
-  enemy.cannonBalls.forEach((ball) => {
-    ball.draw();
+  player.enemies.forEach((enemy) => {
+    enemy.cannonBalls.forEach((ball) => {
+      ball.draw();
+    });
   });
 }
 

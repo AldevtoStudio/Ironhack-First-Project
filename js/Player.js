@@ -32,6 +32,7 @@ class Player {
     this.context = canvasElement.getContext('2d');
     this.panels = [];
     this.tiles = [];
+    this.enemies = [];
 
     // Player sprites direction/path pair value.
     const playerSprites = { idle: '../sprites/player.png', left: '../sprites/playerLeft.png', right: '../sprites/playerRight.png' };
@@ -75,7 +76,11 @@ class Player {
     // Bounce if colliding with tower borders.
     this.checkCanvasBorders();
 
+    // Generate new Tile.
     this.checkTilesOutside();
+
+    // Check intersection with enemies body.
+    this.checkKillEnemies();
   }
 
   physicsUpdate() {
@@ -174,14 +179,13 @@ class Player {
     this.tiles.forEach((tile) => {
       if (tile.y >= this.canvas.height && tile.y <= this.canvas.height + 0.2) {
         let index = this.tiles.indexOf(tile);
-        this.tiles.slice(index, 1);
+        this.tiles.splice(index, 1);
 
         this.tiles.push(new Tile(0, -canvasHeight, this.canvas, this));
         console.log('Tile generated!');
       }
     });
   }
-
 
   checkCanvasBorders() {
     const leftBorder = 32;
@@ -190,6 +194,20 @@ class Player {
     if (this.x + this.spriteSizeX / 2 >= rightBorder || this.x - this.spriteSizeX / 2 <= leftBorder) {
       this.vx = -this.vx;
     }
+  }
+
+  checkKillEnemies() {
+    this.enemies.forEach((enemy) => {
+      let checkX = this.x >= enemy.x - enemy.colliderSizeX / 2 && this.x <= enemy.x + enemy.colliderSizeX / 2;
+      let checkY = this.y <= enemy.y + enemy.colliderSizeY / 2 && this.y >= enemy.y - enemy.colliderSizeY / 2;
+
+      let checkUpBorder = this.y >= enemy.y - enemy.colliderSizeY / 2 && this.y <= enemy.y;
+
+      if (checkUpBorder && checkX && checkY) {
+        this.vy += -this.vy * 2;
+        enemy.vy = 2;
+      }
+    });
   }
 
   die() {

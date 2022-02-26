@@ -5,6 +5,8 @@ class EnemyCannon {
     this.sprite.src = x < canvasElement.width / 2 ? '../sprites/enemyCannonLeft.png' : '../sprites/enemyCannonRight.png';
     this.spriteSizeX = 96;
     this.spriteSizeY = 64;
+    this.colliderSizeX = 96;
+    this.colliderSizeY = 64;
 
     // Enemy text draw.
     this.enemyText = new Image();
@@ -23,8 +25,8 @@ class EnemyCannon {
 
     // Enemy physics
     this.vx = 0;
-    this.vy = 0;
-    this.grav = 0.2;
+    this.vy = 0.2;
+    this.grav = 0;
 
     // Game references
     this.canvas = canvasElement;
@@ -36,7 +38,7 @@ class EnemyCannon {
   update() {
     if (this.player.IsDead) return;
 
-    if (this.cannonBalls.length === 0 && !this.IsWaiting) {
+    if (this.cannonBalls.length === 0 && !this.IsWaiting && this.y > 0) {
       this.createBall();
     }
 
@@ -51,9 +53,9 @@ class EnemyCannon {
 
   physicsUpdate() {
     this.x += this.vx;
-    this.y += this.grav;
+    this.y += this.vy;
 
-    this.vy += 0;
+    this.vy += this.grav;
   }
 
   draw() {
