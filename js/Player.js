@@ -50,6 +50,12 @@ class Player {
   update() {
     if (this.IsDead) return;
 
+    // Die if goes below fire.
+    if (this.y - this.spriteSizeY > this.canvas.height) {
+      this.die();
+    }
+
+    // Enable WASD movement if player is inside windows.
     this.panels.forEach((panel) => {
       if (panel.checkPlayerInside()) {
         this.checkWASDInputs(panel);
@@ -57,17 +63,19 @@ class Player {
       } else if (!this.FirstTime && panel.checkPlayerInside()) this.IsOnAir = true;
     });
 
+    // Get mouse click and drag.
     this.checkMouseInputs();
 
     // Get mouse position inside canvas boundaries.
     this.mousePosition();
 
+    // Logic for physics.
     this.physicsUpdate();
 
-    // Die but letting the head of the player just a little bit above the lava.
-    if (this.y > this.canvas.height) {
-      this.die();
-    }
+    // Bounce if colliding with tower borders.
+    this.checkCanvasBorders();
+
+    this.checkTilesOutside();
   }
 
   physicsUpdate() {
@@ -87,8 +95,6 @@ class Player {
         this.vy += this.grav;
       }
     }
-
-    this.checkTilesOutside();
   }
 
   mousePosition() {
@@ -166,13 +172,24 @@ class Player {
 
   checkTilesOutside() {
     this.tiles.forEach((tile) => {
-      if (tile.y == this.canvas.height) {
+      if (tile.y >= this.canvas.height && tile.y <= this.canvas.height + 0.2) {
         let index = this.tiles.indexOf(tile);
         this.tiles.slice(index, 1);
 
-        tiles.push(new Tile(0, -canvasHeight, this.canvas, this));
+        this.tiles.push(new Tile(0, -canvasHeight, this.canvas, this));
+        console.log('Tile generated!');
       }
     });
+  }
+
+
+  checkCanvasBorders() {
+    const leftBorder = 32;
+    const rightBorder = canvasWidth - 32;
+
+    if (this.x + this.spriteSizeX / 2 >= rightBorder || this.x - this.spriteSizeX / 2 <= leftBorder) {
+      this.vx = -this.vx;
+    }
   }
 
   die() {
@@ -195,4 +212,8 @@ class Player {
 
 function Clamp(n, min, max) {
   return Math.min(Math.max(n, min), max);
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }

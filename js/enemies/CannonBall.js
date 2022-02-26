@@ -31,6 +31,8 @@ class CannonBall {
     }
 
     this.physicsUpdate();
+
+    this.checkCanvasBorders();
   }
 
   physicsUpdate() {
@@ -52,8 +54,18 @@ class CannonBall {
     return checkX && checkY;
   }
 
-  throwBall() {
-    if (this.x < this.canvas.width / 2) this.vx = 2;
-    else this.vx = -2;
+  throwBall(force) {
+    this.vx = force;
   }
+
+  checkCanvasBorders() {
+    const leftBorder = 32;
+    const rightBorder = canvasWidth - 32;
+
+    if (this.x + this.spriteSizeX / 2 >= rightBorder || this.x - this.spriteSizeX / 2 <= leftBorder) this.vx = -this.vx;
+  }
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }

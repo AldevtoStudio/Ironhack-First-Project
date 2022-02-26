@@ -6,12 +6,20 @@ class EnemyCannon {
     this.spriteSizeX = 96;
     this.spriteSizeY = 64;
 
+    // Enemy text draw.
+    this.enemyText = new Image();
+    this.enemyText.src = x < canvasElement.width / 2 ? '../sprites/enemyTextLeft.png' : '../sprites/enemyTextRight.png';
+    this.enemyTextSizeX = 56;
+    this.enemyTextSizeY = 26;
+    this.enemyTextX = x < canvasElement.width / 2 ? x + 48 : x - 48;
+
     // Enemy position.
     this.x = x < canvasElement.width / 2 ? x + 48 : x - 48;
     this.y = y;
 
     // Enemy logic.
     this.IsWaiting = false;
+    this.throwX = x < canvasElement.width / 2 ? randomInt(2, 5) : randomInt(-2, -5);
 
     // Enemy physics
     this.vx = 0;
@@ -50,12 +58,13 @@ class EnemyCannon {
 
   draw() {
     this.context.drawImage(this.sprite, this.x - this.spriteSizeX / 2, this.y - this.spriteSizeY / 2, this.spriteSizeX, this.spriteSizeY);
+    if (this.player.IsDead) this.context.drawImage(this.enemyText, this.enemyTextX - this.enemyTextSizeX / 2, this.y - this.enemyTextSizeY - 28, this.enemyTextSizeX, this.enemyTextSizeY);
   }
 
   createBall() {
     let ball = this.x < this.canvas.width / 2 ? new CannonBall(this.x + 30, this.y - 12, this.canvas, this.player) : new CannonBall(this.x - 30, this.y - 12, this.canvas, this.player);
     this.cannonBalls.push(ball);
-    ball.throwBall();
+    ball.throwBall(this.throwX);
     this.IsWaiting = true;
   }
 
