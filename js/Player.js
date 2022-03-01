@@ -21,6 +21,8 @@ class Player {
     this.keysPressed = [];
     this.IsOnAir = false;
     this.FirstTime = true;
+    this.last = 0;
+    this.score = 0;
 
     // Player physics
     this.vx = 0;
@@ -48,11 +50,17 @@ class Player {
     this.context.drawImage(this.sprites[this.state], this.x - this.spriteSizeX / 2, this.y - this.spriteSizeY / 2, this.spriteSizeX, this.spriteSizeY);
   }
 
-  update() {
+  update(now) {
     if (this.IsDead) return;
 
+    if (!this.last || now - this.last >= 2 * 1000) {
+      this.last = now;
+      this.score++;
+      console.log(this.score);
+    }
+
     // Die if goes below fire.
-    if (this.y - this.spriteSizeY > this.canvas.height) {
+    if (this.y - this.spriteSizeY / 2 > this.canvas.height) {
       this.die();
     }
 
@@ -203,9 +211,9 @@ class Player {
 
       let checkUpBorder = this.y >= enemy.y - enemy.colliderSizeY / 2 && this.y <= enemy.y;
 
-      if (checkUpBorder && checkX && checkY) {
-        this.vy += -this.vy * 2;
-        enemy.vy = 2;
+      if (checkUpBorder && checkX && checkY && Math.sign(this.vy * 2) === 1) {
+        this.vy += -Math.abs(this.vy * 2);
+        enemy.grav = 0.1;
       }
     });
   }

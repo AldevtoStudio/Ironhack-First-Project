@@ -11,13 +11,26 @@ const player = new Player(canvasWidth / 2, canvasHeight - 100, canvasElement);
 const panels = [new Panel(canvasWidth / 2, canvasHeight - 150, canvasElement, player)];
 let tiles = [new Tile(0, 0, canvasElement, player), new Tile(0, -canvasHeight, canvasElement, player)];
 let enemies = [new EnemyCannon(leftBorder, 150, canvasElement, player)];
+const fireFloor = [new Fire(leftBorder + 20, canvasHeight - 20, canvasElement, player)];
 
 player.panels = panels;
 player.tiles = tiles;
 player.enemies = enemies;
 
-function updateLoop() {
-  player.update();
+function start() {
+  let numberOfFires = canvasWidth / 26;
+  let borderLeft = leftBorder + 20;
+  let borderRight = rightBorder - 20;
+
+  for (let i = 0; i < numberOfFires; i++) {
+    let fire = new Fire(28 * i, canvasHeight - 20, canvasElement, player);
+    fire.x = Clamp(fire.x, borderLeft, borderRight);
+    fireFloor.push(fire);
+  }
+}
+
+function updateLoop(stamp) {
+  player.update(stamp);
 
   player.enemies.forEach((enemy) => {
     enemy.update();
@@ -31,12 +44,12 @@ function updateLoop() {
     panel.update();
   });
 
-  drawGame();
+  drawGame(stamp);
 
-  window.requestAnimationFrame(() => updateLoop());
+  window.requestAnimationFrame((stamp) => updateLoop(stamp));
 }
 
-function drawGame() {
+function drawGame(stamp) {
   contextElement.clearRect(0, 0, canvasWidth, canvasHeight);
 
   player.tiles.forEach((tiles) => {
@@ -57,6 +70,10 @@ function drawGame() {
     enemy.cannonBalls.forEach((ball) => {
       ball.draw();
     });
+  });
+
+  fireFloor.forEach((fire) => {
+    fire.draw(stamp);
   });
 }
 
@@ -83,5 +100,6 @@ function getInputs(_player) {
   });
 }
 
+start();
 getInputs(player);
 updateLoop();

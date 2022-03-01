@@ -59,7 +59,9 @@ class Tile {
     for (let i = 0; i < this.maxEnemiesPerTile; i++) {
       let randomNumber = Math.random();
       let randomYPos = yPos[Math.floor(Math.random() * yPos.length)];
-      this.player.enemies.push(new EnemyCannon(randomNumber >= 0.5 ? rightBorder : leftBorder, randomYPos + this.y, this.canvas, this.player));
+
+      let enemy = new EnemyCannon(randomNumber >= 0.5 ? rightBorder : leftBorder, randomYPos + this.y, this.canvas, this.player);
+      this.player.enemies.push(enemy);
 
       let index = yPos.indexOf(randomYPos);
       yPos.splice(index, 1);

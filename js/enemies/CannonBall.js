@@ -12,12 +12,12 @@ class CannonBall {
     this.x = x;
     this.y = y;
 
-    // Enemy physics
+    // Enemy physics.
     this.vx = 0;
     this.vy = 0;
     this.grav = 0.05;
 
-    // Game references
+    // Game references.
     this.canvas = canvasElement;
     this.context = canvasElement.getContext('2d');
     this.player = player;
