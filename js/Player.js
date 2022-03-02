@@ -1,5 +1,5 @@
 class Player {
-  constructor(x, y, canvasElement) {
+  constructor(x, y, canvasElement, game) {
     // Player draw.
     this.sprites = {};
     this.state = 'idle';
@@ -28,6 +28,8 @@ class Player {
     this.vx = 0;
     this.vy = 0;
     this.grav = 0.3;
+    this.throwXForce = 6;
+    this.throwYForce = 11;
 
     // Game references
     this.canvas = canvasElement;
@@ -35,6 +37,7 @@ class Player {
     this.panels = [];
     this.tiles = [];
     this.enemies = [];
+    this.game = game;
 
     // Player sprites direction/path pair value.
     const playerSprites = { idle: '../sprites/player.png', left: '../sprites/playerLeft.png', right: '../sprites/playerRight.png' };
@@ -176,8 +179,8 @@ class Player {
   throwPlayer() {
     if (!this.canThrow) return;
 
-    this.vx = -(5 * this.grabVector.normalized().x);
-    this.vy = -(10 * this.grabVector.normalized().y);
+    this.vx = -(this.throwXForce * this.grabVector.normalized().x);
+    this.vy = -(this.throwYForce * this.grabVector.normalized().y);
 
     this.IsGrabbing = false;
     this.WasGrabbing = false;
@@ -221,6 +224,11 @@ class Player {
   die() {
     console.log('You lost!');
     this.IsDead = true;
+    
+    //this.game.metersText.innerText = this.score;
+    this.game.displayScreen('end');
+    this.metersText = this.game.screens['end'].querySelector('p > span');
+    this.metersText.innerText = this.score;
   }
 
   hit() {

@@ -3,3 +3,13 @@ canvas {
   display: block;
   margin: 0 auto;
 }
+
+.screen {
+  width: 480px;
+  height: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

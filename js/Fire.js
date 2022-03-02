@@ -7,8 +7,6 @@ class Fire {
     this.spriteSizeY = 72;
     this.frame = 0;
     this.player = player;
-    this.framesPerSec = 8;
-    this.lastRender = 0;
     this.frame = 0;
     this.last = 0;
 
