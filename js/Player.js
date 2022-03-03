@@ -12,6 +12,10 @@ class Player {
     this.x = x;
     this.y = y;
 
+    // Player sound.
+    this.jumpSound = new Audio('../audio/playerJump.wav');
+    this.killEnemySound = new Audio('../audio/jumpOnEnemy.wav');
+
     // Player logic.
     this.IsGrabbing = true;
     this.IsDead = false;
@@ -133,7 +137,7 @@ class Player {
 
   checkMouseInputs() {
     // Get mouse position relative to player position on mouse down (start point).
-    this.canvas.onmousedown = (event) => {
+    document.onmousedown = (event) => {
       // First check if mouse is over the player sprite.
       if (!this.checkGrab()) return;
 
@@ -143,7 +147,7 @@ class Player {
     };
 
     // Get mouse position relative to player position on mouse up (end point).
-    this.canvas.onmouseup = (event) => {
+    document.onmouseup = (event) => {
       // First check if client was grabbing the player sprite.
       if (!this.WasGrabbing) return;
 
@@ -187,6 +191,9 @@ class Player {
     this.vx = -(this.throwXForce * this.grabVector.normalized().x);
     this.vy = -(this.throwYForce * this.grabVector.normalized().y);
 
+    this.jumpSound.load();
+    this.jumpSound.play();
+
     this.IsGrabbing = false;
     this.WasGrabbing = false;
   }
@@ -220,6 +227,9 @@ class Player {
       let checkUpBorder = this.y >= enemy.y - enemy.colliderSizeY / 2 && this.y <= enemy.y;
 
       if (checkUpBorder && checkX && checkY && Math.sign(this.vy * 2) === 1) {
+        this.killEnemySound.load();
+        this.killEnemySound.play();
+
         this.vy += -Math.abs(this.vy * 2);
         enemy.grav = 0.1;
       }
@@ -229,6 +239,7 @@ class Player {
   die() {
     console.log('You lost!');
     this.IsDead = true;
+    this.game.fireSound.pause();
 
     //this.game.metersText.innerText = this.score;
     this.game.displayScreen('end');

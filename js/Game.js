@@ -9,6 +9,8 @@ class Game {
     this.rightBorder = this.canvasWidth - 32;
     this.screens = screens;
 
+    this.fireSound = new Audio('../audio/fire.wav');
+
     // Objects references.
     this.player = new Player(canvasWidth / 2, canvasHeight - 100, canvasElement, this);
     this.fireFloor = [new Fire(this.leftBorder + 20, canvasHeight - 20, canvasElement, this.player)];
@@ -30,6 +32,9 @@ class Game {
 
   gameStart() {
     this.displayScreen('playing');
+
+    this.fireSound.loop = true;
+    this.fireSound.play();
 
     // Spawn fire in place.
     let numberOfFires = this.canvasWidth / 26;

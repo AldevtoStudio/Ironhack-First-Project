@@ -5,7 +5,7 @@ class Banner {
     this.sprite.src = '../sprites/banner.png';
     this.spriteSizeX = 64;
     this.spriteSizeY = 192;
-    this.text = player.score;
+    this.text = player.score + 5;
 
     // Banner position.
     this.x = x;
@@ -27,7 +27,7 @@ class Banner {
     this.context.save();
     this.context.font = `38px Pixellari`;
     this.context.fillStyle = 'white';
-    this.context.fillVerticalText('' + this.text, this.x - 10, this.y - this.spriteSizeY + 46, 32);
+    this.context.fillVerticalText('' + this.text, this.x - 10, this.y - this.spriteSizeY + 50, 32);
     this.context.restore();
   }
 

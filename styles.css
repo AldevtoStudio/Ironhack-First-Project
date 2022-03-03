@@ -30,12 +30,20 @@ p {
   margin-top: 0.1em;
 }
 
+button {
+  border: solid #eda27f;
+  border-width: 2px;
+  border-radius: 4px;
+  background-color: #eda27f;
+}
+
 button > p {
   display: flex;
   margin: auto 0;
   align-items: center;
   padding-top: 2.5px;
   font-size: 18px;
+  color: white;
 }
 
 #start-screen,
@@ -43,4 +51,66 @@ button > p {
   background-image: url(/sprites/screenBackground.png);
   background-size: cover;
   background-position: center center;
+}
+
+#start-screen p {
+  margin-bottom: 0.2em;
+}
+
+#end-screen {
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 0.2em;
+}
+
+.controls-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.controls-right p {
+  padding-top: 14px;
+  padding-left: 0.8em;
+  text-align: left;
+}
+
+.controls-right img {
+  width: 200px;
+  margin-right: 1em;
+  border: 2px #3f3851 solid;
+}
+
+.controls-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.controls-left p {
+  padding-top: 14px;
+  padding-left: 0.8em;
+  text-align: left;
+}
+
+.controls-left img {
+  width: 200px;
+  margin-left: 1em;
+  border: 2px #3f3851 solid;
+}
+
+#last {
+  text-align: center;
+  max-width: 380px;
+  margin: 0;
+  padding-bottom: 216px;
+}
+
+#startBtn {
+  position: absolute;
+  top: 600px;
 }

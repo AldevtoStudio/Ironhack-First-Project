@@ -4,22 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>No_Name</title>
+    <title>King's Tower</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="/images/icon.png" />
   </head>
   <body>
     <div class="screen" id="start-screen">
-      <h1>Game name</h1>
-      <button id="startBtn"><p>Start Game</p></button>
+      <h1>King's Tower</h1>
+      <p>Keep the king above fire.</p>
+      <h2>Controls</h2>
+      <div class="controls-right">
+        <p>You can move using WASD if you're inside any window. To throw the king you need to be in any of the window borders.</p>
+        <img src="/images/wasdMovement.gif" alt="playerMovement" />
+      </div>
+      <div class="controls-left">
+        <img src="/images/throwPlayer.gif" alt="playerMovement" />
+        <p>Click the king with the left mouse button, drag in the opposite direction you want to jump and release the mouse button. What a jump!</p>
+      </div>
+      <h2>Tips</h2>
+      <p id="last">If any cannonball hits the king, it will fall down. The king can bounce in the tower walls and also in the enemies head. Poor pigs!</p>
+      <button id="startBtn"><p>- Play -</p></button>
     </div>
     <div class="screen" id="playing-screen" style="display: none">
       <canvas width="480" height="720"></canvas>
     </div>
     <div class="screen" id="end-screen" style="display: none">
-      <h1>You lost!</h1>
+      <h2>Oh no! The king's ass is on fire.</h2>
       <p>You've climbed <span id="metersText">0</span> meters!</p>
-      <button id="tryAgainBtn"><p>Try Again</p></button>
+      <button id="tryAgainBtn"><p>- Try Again -</p></button>
     </div>
     <script src="js/Player.js"></script>
     <script src="js/platforms/Panels.js"></script>

@@ -8,6 +8,9 @@ class EnemyCannon {
     this.colliderSizeX = 96;
     this.colliderSizeY = 64;
 
+    // Enemy sounds.
+    this.sound = new Audio('../../audio/cannonFire.wav');
+
     // Enemy text draw.
     this.enemyText = new Image();
     this.enemyText.src = x < canvasElement.width / 2 ? '../sprites/enemyTextLeft.png' : '../sprites/enemyTextRight.png';
@@ -40,6 +43,8 @@ class EnemyCannon {
 
     if (this.cannonBalls.length === 0 && !this.IsWaiting && this.y > 0) {
       this.createBall();
+      this.sound.load();
+      this.sound.play();
     }
 
     this.cannonBalls.forEach((ball) => {
@@ -49,6 +54,8 @@ class EnemyCannon {
     this.checkBallOutsideCanvas();
 
     this.physicsUpdate();
+
+    if (this.y >= this.canvas.height + this.spriteSizeY) this.sound.pause();
   }
 
   physicsUpdate() {
