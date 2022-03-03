@@ -1,7 +1,11 @@
-canvas {
-  border: 1px red solid;
-  display: block;
-  margin: 0 auto;
+@font-face {
+  font-family: 'Pixellari';
+  src: url('/fonts/Pixellari.ttf');
+}
+
+* {
+  font-family: 'Pixellari';
+  color: #3f3851;
 }
 
 .screen {
@@ -12,4 +16,31 @@ canvas {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 4px #3f3851 solid;
+}
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 0.1em;
+}
+
+p {
+  font-size: 18px;
+  margin-bottom: 1em;
+  margin-top: 0.1em;
+}
+
+button > p {
+  display: flex;
+  margin: auto 0;
+  align-items: center;
+  padding-top: 2.5px;
+  font-size: 18px;
+}
+
+#start-screen,
+#end-screen {
+  background-image: url(/sprites/screenBackground.png);
+  background-size: cover;
+  background-position: center center;
 }

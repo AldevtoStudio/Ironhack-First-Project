@@ -11,7 +11,7 @@
   <body>
     <div class="screen" id="start-screen">
       <h1>Game name</h1>
-      <button id="startBtn">Start Game</button>
+      <button id="startBtn"><p>Start Game</p></button>
     </div>
     <div class="screen" id="playing-screen" style="display: none">
       <canvas width="480" height="720"></canvas>
@@ -19,7 +19,7 @@
     <div class="screen" id="end-screen" style="display: none">
       <h1>You lost!</h1>
       <p>You've climbed <span id="metersText">0</span> meters!</p>
-      <button id="tryAgainBtn">Try Again</button>
+      <button id="tryAgainBtn"><p>Try Again</p></button>
     </div>
     <script src="js/Player.js"></script>
     <script src="js/platforms/Panels.js"></script>
@@ -27,8 +27,10 @@
     <script src="js/platforms/MapTiles.js"></script>
     <script src="js/enemies/CannonBall.js"></script>
     <script src="js/enemies/EnemyCannon.js"></script>
+    <script src="js/Banner.js"></script>
     <script src="js/Fire.js"></script>
     <script src="js/Game.js"></script>
+    <script src="js/Utils.js"></script>
     <script src="js/Main.js"></script>
   </body>
 </html>

@@ -37,7 +37,3 @@ class Vector {
     return new Vector(Round(this.x / this.mag), Round(this.y / this.mag));
   }
 }
-
-function Round(number) {
-  return +(Math.round(number + 'e+2') + 'e-2');
-}

@@ -65,7 +65,3 @@ class CannonBall {
     if (this.x + this.spriteSizeX / 2 >= rightBorder || this.x - this.spriteSizeX / 2 <= leftBorder) this.vx = -this.vx;
   }
 }
-
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}

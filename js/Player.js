@@ -38,6 +38,7 @@ class Player {
     this.tiles = [];
     this.enemies = [];
     this.game = game;
+    this.banners = [];
 
     // Player sprites direction/path pair value.
     const playerSprites = { idle: '../sprites/player.png', left: '../sprites/playerLeft.png', right: '../sprites/playerRight.png' };
@@ -59,7 +60,11 @@ class Player {
     if (!this.last || now - this.last >= 2 * 1000) {
       this.last = now;
       this.score++;
-      console.log(this.score);
+      // Create banner.
+      if (this.score && this.score % 15 === 0) {
+        let banner = new Banner(this.canvas.width / 2, 0, this.canvas, this);
+        this.banners.push(banner);
+      }
     }
 
     // Die if goes below fire.
@@ -192,7 +197,7 @@ class Player {
         let index = this.tiles.indexOf(tile);
         this.tiles.splice(index, 1);
 
-        this.tiles.push(new Tile(0, -canvasHeight, this.canvas, this));
+        this.tiles.push(new Tile(0, -canvasHeight, this.canvas, this, this.game));
         console.log('Tile generated!');
       }
     });
@@ -224,7 +229,7 @@ class Player {
   die() {
     console.log('You lost!');
     this.IsDead = true;
-    
+
     //this.game.metersText.innerText = this.score;
     this.game.displayScreen('end');
     this.metersText = this.game.screens['end'].querySelector('p > span');
@@ -242,12 +247,4 @@ class Player {
     this.vx = 0;
     this.vy = -3;
   }
-}
-
-function Clamp(n, min, max) {
-  return Math.min(Math.max(n, min), max);
-}
-
-function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
 }

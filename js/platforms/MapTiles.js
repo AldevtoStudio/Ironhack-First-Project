@@ -1,5 +1,5 @@
 class Tile {
-  constructor(x, y, canvasElement, player) {
+  constructor(x, y, canvasElement, player, game) {
     // Tile draw.
     this.sprite = new Image();
     this.sprite.src = '../sprites/towerBackground.png';
@@ -19,8 +19,7 @@ class Tile {
     this.player = player;
     this.xPositions = [];
     this.yPositions = [];
-    this.maxPanelsPerTile = 6;
-    this.maxEnemiesPerTile = 1;
+    this.game = game;
   }
 
   generatePanels() {
@@ -98,6 +97,34 @@ class Tile {
 
   update() {
     if (this.player.IsDead) return;
+
+    switch (this.game.difficulty) {
+      case 0:
+        this.maxPanelsPerTile = 8;
+        this.maxEnemiesPerTile = 0;
+        break;
+      case 1:
+        this.maxPanelsPerTile = 8;
+        this.maxEnemiesPerTile = 1;
+        break;
+      case 2:
+        this.maxPanelsPerTile = 8;
+        this.maxEnemiesPerTile = 2;
+        break;
+      case 3:
+        this.maxPanelsPerTile = 7;
+        this.maxEnemiesPerTile = 3;
+        break;
+      case 4:
+        this.maxPanelsPerTile = 6;
+        this.maxEnemiesPerTile = 2;
+        break;
+
+      default:
+        this.maxPanelsPerTile = 7;
+        this.maxEnemiesPerTile = 0;
+        break;
+    }
 
     this.physicsUpdate();
   }

@@ -76,7 +76,3 @@ class Panel {
     return checkLeftBorder || checkRightBorder || checkUpBorder || checkDownBorder;
   }
 }
-
-function Clamp(n, min, max) {
-  return Math.min(Math.max(n, min), max);
-}
