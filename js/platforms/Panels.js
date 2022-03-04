@@ -39,8 +39,6 @@ class Panel {
 
     if (this.checkPlayerInside() && this.checkPlayerInBorders()) {
       this.player.canThrow = true;
-    } else {
-      this.player.grav = 0.3;
     }
 
     this.physicsUpdate();

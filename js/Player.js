@@ -114,11 +114,11 @@ class Player {
       this.x += this.vx;
       this.y += this.vy;
 
+      this.vy += this.grav;
+
       if (this.IsGrabbing) {
         this.vy = 0;
         this.vx = 0;
-      } else {
-        this.vy += this.grav;
       }
     }
   }
@@ -179,7 +179,7 @@ class Player {
       }
 
       // Clamp player position.
-      let offset = 2;
+      let offset = 4;
 
       this.x = Clamp(this.x, panel.x - panel.colliderSizeX / 2 + offset, panel.x + panel.colliderSizeX / 2 - offset);
       this.y = Clamp(this.y, panel.y - panel.colliderSizeY / 2 + offset, panel.y + panel.colliderSizeY / 2 - offset);
