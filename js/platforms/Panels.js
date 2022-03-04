@@ -33,7 +33,7 @@ class Panel {
     if (this.checkPlayerInside()) {
       this.player.x += this.vx;
       this.player.y += this.grav;
-      this.player.IsGrabbing = true;
+      if (!this.player.IsOnAir) this.player.IsGrabbing = true;
       this.player.canThrow = false;
     }
 

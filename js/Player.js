@@ -27,6 +27,7 @@ class Player {
     this.FirstTime = true;
     this.last = 0;
     this.score = 0;
+    this.canGrab = true;
 
     // Player physics
     this.vx = 0;
@@ -196,6 +197,7 @@ class Player {
 
     this.IsGrabbing = false;
     this.WasGrabbing = false;
+    this.canGrab = true;
   }
 
   checkTilesOutside() {
@@ -254,6 +256,7 @@ class Player {
     this.WasGrabbing = false;
     this.IsOnAir = true;
     this.canThrow = false;
+    this.canGrab = true;
 
     this.vx = 0;
     this.vy = -3;
