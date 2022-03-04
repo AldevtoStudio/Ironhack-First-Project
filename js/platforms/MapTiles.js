@@ -101,7 +101,7 @@ class Tile {
     switch (this.game.difficulty) {
       case 0:
         this.maxPanelsPerTile = 9;
-        this.maxEnemiesPerTile = 1;
+        this.maxEnemiesPerTile = 0;
         break;
       case 1:
         this.maxPanelsPerTile = 8;
