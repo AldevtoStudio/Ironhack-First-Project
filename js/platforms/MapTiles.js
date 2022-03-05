@@ -79,7 +79,7 @@ class Tile {
       if (!this.IsGenerated) this.yPositions.push(row);
       for (let column = 1; column < this.numberOfCols - 2; column++) {
         if (!this.IsGenerated) this.xPositions.push(column);
-        this.context.strokeRect(column * this.gridSizeX, row * this.gridSizeY + this.y, this.gridSizeX, this.gridSizeY);
+        //this.context.strokeRect(column * this.gridSizeX, row * this.gridSizeY + this.y, this.gridSizeX, this.gridSizeY);
       }
     }
 

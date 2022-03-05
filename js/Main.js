@@ -62,6 +62,9 @@ function getInputs(player) {
       case 'ArrowRight':
         player.keysPressed = player.keysPressed.filter((keyName) => keyName !== e.key);
         break;
+      case 'F5':
+        window.location.reload();
+        break;
     }
   });
 }
