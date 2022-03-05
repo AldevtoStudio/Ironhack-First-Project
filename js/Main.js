@@ -35,21 +35,31 @@ function tryAgain() {
 
 function getInputs(player) {
   window.addEventListener('keydown', (e) => {
+    e.preventDefault();
     switch (e.key) {
       case 'w':
       case 'a':
       case 's':
       case 'd':
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight':
         player.keysPressed.push(e.key);
         break;
     }
   });
   window.addEventListener('keyup', (e) => {
+    e.preventDefault();
     switch (e.key) {
       case 'w':
       case 'a':
       case 's':
       case 'd':
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight':
         player.keysPressed = player.keysPressed.filter((keyName) => keyName !== e.key);
         break;
     }

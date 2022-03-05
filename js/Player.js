@@ -165,21 +165,25 @@ class Player {
     for (const key of this.keysPressed) {
       switch (key) {
         case 'w':
+        case 'ArrowUp':
           this.vy = -0.5;
           break;
         case 's':
+        case 'ArrowDown':
           this.vy = +0.5;
           break;
         case 'a':
+        case 'ArrowLeft':
           this.vx = -0.5;
           break;
         case 'd':
+        case 'ArrowRight':
           this.vx = +0.5;
           break;
       }
 
       // Clamp player position.
-      let offset = 4;
+      let offset = 2;
 
       this.x = Clamp(this.x, panel.x - panel.colliderSizeX / 2 + offset, panel.x + panel.colliderSizeX / 2 - offset);
       this.y = Clamp(this.y, panel.y - panel.colliderSizeY / 2 + offset, panel.y + panel.colliderSizeY / 2 - offset);

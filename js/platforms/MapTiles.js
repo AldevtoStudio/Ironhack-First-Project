@@ -34,9 +34,10 @@ class Tile {
       // Stop generating panels if reached maxPanelsPerTile.
       if (this.maxPanelsPerTile === generatedPanels) return;
 
-      // Generate random x positions and prevent the first time to be the same as the last x.
-      let randomXPos = this.xPositions[Math.floor(Math.random() * this.xPositions.length)];
+      // Generate random x positions and prevent the first time to be the same as the last x or be far away.
+      let randomXPos = lastX ? this.xPositions[Math.floor(Math.random() * this.xPositions.length)] : randomInt(2, 3);
       if (lastX == randomXPos) randomXPos = this.xPositions[Math.floor(Math.random() * this.xPositions.length)];
+      if (Math.abs(lastX - randomXPos) === 4 || Math.abs(lastX - randomXPos) === 4) randomXPos = randomInt(2, 3);
 
       // Get fixed y position.
       let yPos = this.yPositions[i];
@@ -78,7 +79,7 @@ class Tile {
       if (!this.IsGenerated) this.yPositions.push(row);
       for (let column = 1; column < this.numberOfCols - 2; column++) {
         if (!this.IsGenerated) this.xPositions.push(column);
-        //this.context.strokeRect(column * this.gridSizeX, row * this.gridSizeY + this.y, this.gridSizeX, this.gridSizeY);
+        this.context.strokeRect(column * this.gridSizeX, row * this.gridSizeY + this.y, this.gridSizeX, this.gridSizeY);
       }
     }
 
