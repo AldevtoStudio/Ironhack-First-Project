@@ -121,11 +121,14 @@ h2 {
   text-align: center;
 }
 
+#about h5 {
+  padding: 0;
+  margin: 0;
+}
+
 footer {
-  color: white;
   padding-top: 24px;
   padding-bottom: 18px;
-  margin-top: 24px;
 }
 
 footer > div {
@@ -135,10 +138,11 @@ footer > div {
 }
 
 footer a {
+  color: #6d5c99;
   text-align: center;
   text-decoration: none;
-  color: transparent;
-  margin-right: 12px;
+  padding-left: 0.4em;
+  margin-top: 1em;
 }
 
 footer img {
