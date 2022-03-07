@@ -114,3 +114,35 @@ h2 {
   position: absolute;
   top: 600px;
 }
+
+#about {
+  width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+footer {
+  color: white;
+  padding-top: 24px;
+  padding-bottom: 18px;
+  margin-top: 24px;
+}
+
+footer > div {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+footer a {
+  text-align: center;
+  text-decoration: none;
+  color: transparent;
+  margin-right: 12px;
+}
+
+footer img {
+  text-align: center;
+  width: 64px;
+  margin-bottom: 1em;
+}
